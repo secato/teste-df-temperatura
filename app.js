@@ -11,8 +11,9 @@ if (process.env.NODE_ENV !== 'production')
 // APP CONFIG
 const projectId = process.env.GOOGLE_PROJECT_ID || config.GOOGLE_PROJECT_ID
 const client_email = process.env.GOOGLE_CLIENT_EMAIL || config.GOOGLE_CLIENT_EMAIL
-const private_key = process.env.GOOGLE_PRIVATE_KEY || config.GOOGLE_PRIVATE_KEY
+const private_key = process.env.GOOGLE_PRIVATE_KEY.toString() || config.GOOGLE_PRIVATE_KEY
 const weather_api_key = process.env.WEATHER_API_KEY || config.WEATHER_API_KEY
+
 const port = process.env.PORT || 5001
 const languageCode = 'pt-BR'
 
