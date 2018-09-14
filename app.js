@@ -16,6 +16,8 @@ const weather_api_key = process.env.WEATHER_API_KEY || config.WEATHER_API_KEY
 const port = process.env.PORT || 5001
 const languageCode = 'pt-BR'
 
+console.log(private_key)
+
 const sessionClient = new dialogflow.SessionsClient({
     projectId,
     credentials: { client_email, private_key }
