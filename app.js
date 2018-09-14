@@ -5,7 +5,7 @@ const dialogflow = require('dialogflow')
 const app = express()
 let config = undefined
 
-if (process.env.NODE_ENV !== 'PRODUCTION')
+if (process.env.NODE_ENV !== 'production')
     config = require('./config')
 
 // APP CONFIG
