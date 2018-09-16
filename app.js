@@ -9,7 +9,7 @@ app.use(cors())
 app.use(bodyParser.urlencoded({ extended: true }))
 
 app.post('/dialogflow', (req, res) => {
-    res.send(req.body)
+    console.log(req)
 })
 
 app.listen(port, console.log(`Server started listening on ${port}`))
