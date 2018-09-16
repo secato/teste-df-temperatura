@@ -33,31 +33,36 @@ app.post('/dialogflow', (request, response) => {
 
     }
 
-    function temperatura(agent) {
+    async function temperatura(agent) {
         const latitude = -20.8467
         const longtitude = -41.1202
         const api_url = `https://api.darksky.net/forecast/${weather_api_key}/${latitude},${longtitude}`
         console.log(api_url)
-        axios.get(api_url)
-            .then(result => {
-                const temperature = (result.data.currently.temperature - 32) / 1.8
-                const apparentTemperature = (result.data.currently.apparentTemperature - 32) / 1.8
-                // agent.add(`A temperatura agora em cachoeiro é de ${temperature} graus celsius.`)
-                response.json({ fulfillmentText: `A temperatura atual em cachoeiro é de ${temperature}` })
-                // agent.add(`Welcome to the temperature converter!`);
-                // agent.add(new Card({
-                //     title: `Vibrating molecules`,
-                //     imageUrl: wikipediaTemperatureImageUrl,
-                //     text: `Did you know that temperature is really just a measure of how fast molecules are vibrating around?! 😱`,
-                //     buttonText: 'Temperature Wikipedia Page',
-                //     buttonUrl: wikipediaTemperatureUrl
-                // })
-                // );
-                // agent.add(`I can convert Celsuis to Fahrenheit and Fahrenheit to Celsius! What temperature would you like to convert?`);
-                // agent.add(new Suggestion(`27° Celsius`));
-                // agent.add(new Suggestion(`-40° Fahrenheit`));
-                // agent.add(new Suggestion(`Cancel`));
-            }).catch(err => console.error(err))
+
+        const result = await axios.get(api_url)
+        const temperature = (result.data.currently.temperature - 32) / 1.8
+        agent.add(`A temperatura agora em cachoeiro é de ${temperature} graus celsius.`)
+
+        // axios.get(api_url)
+        //     .then(result => {
+
+        //         const apparentTemperature = (result.data.currently.apparentTemperature - 32) / 1.8
+
+        //         response.json({ fulfillmentText: `A temperatura atual em cachoeiro é de ${temperature}` })
+        //         // agent.add(`Welcome to the temperature converter!`);
+        //         // agent.add(new Card({
+        //         //     title: `Vibrating molecules`,
+        //         //     imageUrl: wikipediaTemperatureImageUrl,
+        //         //     text: `Did you know that temperature is really just a measure of how fast molecules are vibrating around?! 😱`,
+        //         //     buttonText: 'Temperature Wikipedia Page',
+        //         //     buttonUrl: wikipediaTemperatureUrl
+        //         // })
+        //         // );
+        //         // agent.add(`I can convert Celsuis to Fahrenheit and Fahrenheit to Celsius! What temperature would you like to convert?`);
+        //         // agent.add(new Suggestion(`27° Celsius`));
+        //         // agent.add(new Suggestion(`-40° Fahrenheit`));
+        //         // agent.add(new Suggestion(`Cancel`));
+        //     }).catch(err => console.error(err))
 
     }
 
