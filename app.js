@@ -49,7 +49,7 @@ app.post('/dialogflow', (request, response) => {
             console.log('Agent CONSOLE MESSAGES:', agent.consoleMessages)
             console.log('TYPEOF:', typeof agent.consoleMessages)
 
-            let messages = agent.consoleMessages.map(message => message.text.text)
+            let messages = agent.consoleMessages.map(message => message.text)
             messages.push(`A temperatura agora em cachoeiro é de ${temperature.toFixed(2)} graus celsius.`)
             console.log('MESSAGES ARRAY:', messages)
             agent.add(messages)
