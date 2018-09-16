@@ -44,7 +44,9 @@ app.post('/dialogflow', (request, response) => {
         const result = await axios.get(api_url)
         const temperature = (result.data.currently.temperature - 32) / 1.8
         console.log(agent.consoleMessages)
-        agent.add(`A temperatura agora em cachoeiro é de ${temperature.toFixed(2)} graus celsius.`)
+        agent.add(['Temperatura? é pra já',
+            'Aguarde enquanto consultamos os satelites da wolff...',
+            `A temperatura agora em cachoeiro é de ${temperature.toFixed(2)} graus celsius.`])
 
         // axios.get(api_url)
         //     .then(result => {
