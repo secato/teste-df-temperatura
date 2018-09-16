@@ -42,8 +42,8 @@ app.post('/dialogflow', (request, response) => {
             .then(result => {
                 const temperature = (result.data.currently.temperature - 32) / 1.8
                 const apparentTemperature = (result.data.currently.apparentTemperature - 32) / 1.8
-                agent.add(`A temperatura agora em cachoeiro é de ${temperature} graus celsius.`)
-                // response.json({ fulfillmentText: `A temperatura atual em cachoeiro é de ${temperature}` })
+                // agent.add(`A temperatura agora em cachoeiro é de ${temperature} graus celsius.`)
+                response.json({ fulfillmentText: `A temperatura atual em cachoeiro é de ${temperature}` })
                 // agent.add(`Welcome to the temperature converter!`);
                 // agent.add(new Card({
                 //     title: `Vibrating molecules`,
