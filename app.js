@@ -10,7 +10,7 @@ app.use(bodyParser.json())
 
 app.post('/dialogflow', (req, res) => {
     console.log(req.body)
-    req.body.fulfillmentText = 'Oi, eu fui alterado via webhook'
+    req.body.queryResult.fulfillmentText = 'Oi, eu fui alterado via webhook'
     res.send(req.body)
 })
 
