@@ -10,7 +10,8 @@ app.use(bodyParser.json())
 
 app.post('/dialogflow', (req, res) => {
     console.log(req.body)
-    res.send('hi')
+    req.body.fulfillmentText = 'Oi, eu fui alterado via webhook'
+    res.send(req)
 })
 
 app.listen(port, console.log(`Server started listening on ${port}`))
