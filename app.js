@@ -41,36 +41,43 @@ app.post('/dialogflow', (request, response) => {
         const api_url = `https://api.darksky.net/forecast/${weather_api_key}/${latitude},${longtitude}`
         console.log(api_url)
 
-        const result = await axios.get(api_url)
-        const temperature = (result.data.currently.temperature - 32) / 1.8
-        console.log(agent.consoleMessages)
-        console.log(typeof agent.consoleMessages)
+        try {
 
-        let messages = agent.consoleMessages.map(message => message.text.text)
-        messages.push(`A temperatura agora em cachoeiro é de ${temperature.toFixed(2)} graus celsius.`)
-        console.log(messages)
-        agent.add(messages)
 
-        // axios.get(api_url)
-        //     .then(result => {
+            const result = await axios.get(api_url)
+            const temperature = (result.data.currently.temperature - 32) / 1.8
+            console.log(agent.consoleMessages)
+            console.log(typeof agent.consoleMessages)
 
-        //         const apparentTemperature = (result.data.currently.apparentTemperature - 32) / 1.8
+            let messages = agent.consoleMessages.map(message => message.text.text)
+            messages.push(`A temperatura agora em cachoeiro é de ${temperature.toFixed(2)} graus celsius.`)
+            console.log(messages)
+            agent.add(messages)
 
-        //         response.json({ fulfillmentText: `A temperatura atual em cachoeiro é de ${temperature}` })
-        //         // agent.add(`Welcome to the temperature converter!`);
-        //         // agent.add(new Card({
-        //         //     title: `Vibrating molecules`,
-        //         //     imageUrl: wikipediaTemperatureImageUrl,
-        //         //     text: `Did you know that temperature is really just a measure of how fast molecules are vibrating around?! 😱`,
-        //         //     buttonText: 'Temperature Wikipedia Page',
-        //         //     buttonUrl: wikipediaTemperatureUrl
-        //         // })
-        //         // );
-        //         // agent.add(`I can convert Celsuis to Fahrenheit and Fahrenheit to Celsius! What temperature would you like to convert?`);
-        //         // agent.add(new Suggestion(`27° Celsius`));
-        //         // agent.add(new Suggestion(`-40° Fahrenheit`));
-        //         // agent.add(new Suggestion(`Cancel`));
-        //     }).catch(err => console.error(err))
+            // axios.get(api_url)
+            //     .then(result => {
+
+            //         const apparentTemperature = (result.data.currently.apparentTemperature - 32) / 1.8
+
+            //         response.json({ fulfillmentText: `A temperatura atual em cachoeiro é de ${temperature}` })
+            //         // agent.add(`Welcome to the temperature converter!`);
+            //         // agent.add(new Card({
+            //         //     title: `Vibrating molecules`,
+            //         //     imageUrl: wikipediaTemperatureImageUrl,
+            //         //     text: `Did you know that temperature is really just a measure of how fast molecules are vibrating around?! 😱`,
+            //         //     buttonText: 'Temperature Wikipedia Page',
+            //         //     buttonUrl: wikipediaTemperatureUrl
+            //         // })
+            //         // );
+            //         // agent.add(`I can convert Celsuis to Fahrenheit and Fahrenheit to Celsius! What temperature would you like to convert?`);
+            //         // agent.add(new Suggestion(`27° Celsius`));
+            //         // agent.add(new Suggestion(`-40° Fahrenheit`));
+            //         // agent.add(new Suggestion(`Cancel`));
+            //     }).catch(err => console.error(err))
+        } catch (err) {
+            console.error(err)
+
+        }
 
     }
 
