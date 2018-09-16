@@ -22,6 +22,8 @@ app.post('/dialogflow', (request, response) => {
     // res.send(req.body)
     const agent = new WebhookClient({ request, response })
 
+
+
     function welcome(agent) {
         agent.add('Meu webhook favorito')
 
@@ -41,7 +43,8 @@ app.post('/dialogflow', (request, response) => {
 
         const result = await axios.get(api_url)
         const temperature = (result.data.currently.temperature - 32) / 1.8
-        agent.add(`A temperatura agora em cachoeiro é de ${temperature} graus celsius.`)
+        console.log(agent.consoleMessages)
+        agent.add(`A temperatura agora em cachoeiro é de ${temperature.toFixed(2)} graus celsius.`)
 
         // axios.get(api_url)
         //     .then(result => {
