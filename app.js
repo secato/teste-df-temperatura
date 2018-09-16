@@ -8,6 +8,7 @@ app.use(cors())
 
 app.post('/dialogflow', (req, res) => {
     console.log(req.body)
+    res.send('hi')
 })
 
 app.listen(port, console.log(`Server started listening on ${port}`))
