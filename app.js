@@ -9,15 +9,16 @@ const wikipediaTemperatureImageUrl = 'https://upload.wikimedia.org/wikipedia/com
 
 const port = process.env.PORT || 5000
 
-app.use(cors())
 app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(cors())
 
 // default url para o webhook
-app.post('/dialogflow', (req, res) => {
+app.post('/dialogflow', (request, response) => {
     // console.log(req.body)
     // req.body.queryResult.fulfillmentText = 'Oi, eu fui alterado via webhook'
     // res.send(req.body)
-    const agent = new WebhookClient({ req, res })
+    const agent = new WebhookClient({ request, response })
 
     function welcome(agent) {
         agent.add('Meu webhook favorito')
@@ -26,6 +27,7 @@ app.post('/dialogflow', (req, res) => {
     function fallback(agent) {
         agent.add(`I didn't understand`);
         agent.add(`I'm sorry, can you try again?`);
+
     }
 
     function temperatura(agent) {
