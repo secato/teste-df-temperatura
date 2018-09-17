@@ -17,23 +17,20 @@ app.use(cors())
 
 // default url para o webhook
 app.post('/dialogflow', (request, response) => {
-    // console.log(req.body)
-    // req.body.queryResult.fulfillmentText = 'Oi, eu fui alterado via webhook'
-    // res.send(req.body)
     const agent = new WebhookClient({ request, response })
 
 
 
-    function welcome(agent) {
-        agent.add('Meu webhook favorito')
+    // function welcome(agent) {
+    //     agent.add('Meu webhook favorito')
 
-    }
+    // }
 
-    function fallback(agent) {
-        agent.add(`I didn't understand`);
-        agent.add(`I'm sorry, can you try again?`);
+    // function fallback(agent) {
+    //     agent.add(`I didn't understand`);
+    //     agent.add(`I'm sorry, can you try again?`);
 
-    }
+    // }
 
     async function temperatura(agent) {
         const latitude = -20.8467
@@ -46,34 +43,14 @@ app.post('/dialogflow', (request, response) => {
 
             const result = await axios.get(api_url)
             const temperature = (result.data.currently.temperature - 32) / 1.8
-            console.log('Agent CONSOLE MESSAGES:', agent.consoleMessages)
-            console.log('TYPEOF:', typeof agent.consoleMessages)
+            // console.log('Agent CONSOLE MESSAGES:', agent.consoleMessages)
+            // console.log('TYPEOF:', typeof agent.consoleMessages)
 
             let messages = agent.consoleMessages.map(message => message.text)
             messages.push(`A temperatura agora em cachoeiro é de ${temperature.toFixed(2)} graus celsius.`)
-            console.log('MESSAGES ARRAY:', messages)
+            // console.log('MESSAGES ARRAY:', messages)
             agent.add(messages)
 
-            // axios.get(api_url)
-            //     .then(result => {
-
-            //         const apparentTemperature = (result.data.currently.apparentTemperature - 32) / 1.8
-
-            //         response.json({ fulfillmentText: `A temperatura atual em cachoeiro é de ${temperature}` })
-            //         // agent.add(`Welcome to the temperature converter!`);
-            //         // agent.add(new Card({
-            //         //     title: `Vibrating molecules`,
-            //         //     imageUrl: wikipediaTemperatureImageUrl,
-            //         //     text: `Did you know that temperature is really just a measure of how fast molecules are vibrating around?! 😱`,
-            //         //     buttonText: 'Temperature Wikipedia Page',
-            //         //     buttonUrl: wikipediaTemperatureUrl
-            //         // })
-            //         // );
-            //         // agent.add(`I can convert Celsuis to Fahrenheit and Fahrenheit to Celsius! What temperature would you like to convert?`);
-            //         // agent.add(new Suggestion(`27° Celsius`));
-            //         // agent.add(new Suggestion(`-40° Fahrenheit`));
-            //         // agent.add(new Suggestion(`Cancel`));
-            //     }).catch(err => console.error(err))
         } catch (err) {
             console.error(err)
 
@@ -82,8 +59,8 @@ app.post('/dialogflow', (request, response) => {
     }
 
     let intentMap = new Map();
-    intentMap.set('Default Welcome Intent', welcome);
-    intentMap.set('Default Fallback Intent', fallback);
+    // intentMap.set('Default Welcome Intent', welcome);
+    // intentMap.set('Default Fallback Intent', fallback);
     intentMap.set('temperatura', temperatura);
     // intentMap.set('<INTENT_NAME_HERE>', googleAssistantHandler);
     agent.handleRequest(intentMap);
