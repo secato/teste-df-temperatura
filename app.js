@@ -83,6 +83,7 @@ app.post('/dialogflow', (request, response) => {
             messages.push(`Salário Líquido: ${result.data.salarioliquido}`)
 
             let mensagemFinal = agent.consoleMessages.unshift(messages)
+            console.log(mensagemFinal)
             agent.add(mensagemFinal)
         } catch (err) {
             console.error(err)
