@@ -93,19 +93,36 @@ app.post('/dialogflow', (request, response) => {
                 attachment: {
                     type: "template",
                     payload: {
-                        template_type: "button",
-                        text: "Try the URL button!",
+                        template_type: "list",
+                        elements: [
+                            {
+                                title: 'Nome',
+                                subtitle: result.data.name
+                            },
+                            {
+                                title: 'Salário bruto',
+                                subtitle: result.data.salariobruto
+                            },
+                            {
+                                title: 'Descontos',
+                                subtitle: result.data.descontos
+                            },
+                            {
+                                title: 'Salário líquido',
+                                subtitle: result.data.salarioliquido
+                            },
+                        ],
                         buttons: [
                             {
                                 type: "web_url",
-                                url: "https://www.messenger.com/",
-                                title: "URL Button",
-                                webview_height_ratio: "full"
+                                url: `https://www.kachu.com.br/bot/contracheque.php?cpf=${agent.parameters.cpf}&mes=${agent.parameters.mes}&ano=${agent.parameters.ano}`,
+                                title: "Detalhado"
                             }
                         ]
                     }
                 }
             })
+
             richMessages.push(simpleText, fbMessage)
             agent.add(richMessages)
 
