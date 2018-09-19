@@ -21,16 +21,26 @@ app.post('/dialogflow', (request, response) => {
 
 
 
-    // function welcome(agent) {
-    //     agent.add('Meu webhook favorito')
+    async function clima(agent) {
+        const api_url = `https://api.darksky.net/forecast/${weather_api_key}/-20.8467,-41.1202?lang=pt&exclude=hourly`
+        console.log(api_url)
 
-    // }
+        try {
+            const result = await axios.get(api_url)
+            const temperature = (result.data.currently.temperature - 32) / 1.8
+            const summary = result.data.currently.summary
+            const min = (result.data.daily.data[0].temperatureLow - 32) / 1.8
+            const max = (result.data.daily.data[0].temperatureHigh - 32) / 1.8
 
-    // function fallback(agent) {
-    //     agent.add(`I didn't understand`);
-    //     agent.add(`I'm sorry, can you try again?`);
+            let messages = agent.consoleMessages.map(message => message.text)
+            messages.push(`A previsão do clima hoje para cachoeiro é de tempo ${summary}. Com temperatura mínima
+             de mínima de ${min.toFixed(2)}°C e máxima de ${max.toFixed(2)}°C.`)
+            messages.push(`A temperatura agora é de ${temperature.toFixed(2)}°C.`)
+            agent.add(messages)
+        } catch (err) {
 
-    // }
+        }
+    }
 
     async function temperatura(agent) {
         const latitude = -20.8467
@@ -62,6 +72,7 @@ app.post('/dialogflow', (request, response) => {
     // intentMap.set('Default Welcome Intent', welcome);
     // intentMap.set('Default Fallback Intent', fallback);
     intentMap.set('temperatura', temperatura);
+    intentMap.set('clima', temperatura);
     // intentMap.set('<INTENT_NAME_HERE>', googleAssistantHandler);
     agent.handleRequest(intentMap);
 })
