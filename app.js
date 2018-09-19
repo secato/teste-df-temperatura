@@ -159,20 +159,21 @@ app.post('/dialogflow', (request, response) => {
 app.post('/dialogtreta', (request, response) => {
     console.log(request.body)
 
-
-    const fulfill = {
-        fulfillmentMessages: [
-            {
-                text: {
-                    text: [
-                        "Temperatura? É pra já..."
-                    ]
+    if (request.body.queryResult.intent.displayName === 'piada') {
+        const fulfill = {
+            fulfillmentMessages: [
+                {
+                    text: {
+                        text: [
+                            "Vai filhao..."
+                        ]
+                    }
                 }
-            }
-        ]
+            ]
+        }
+        response.json(fulfill)
     }
 
-    response.json(fulfill)
 })
 
 app.listen(port, console.log(`Server started listening on ${port}`))
