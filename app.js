@@ -87,7 +87,7 @@ app.post('/dialogflow', (request, response) => {
             // {
             //     
             //   }
-            agent.add({
+            agent.add(new Payload('FACEBOOK', {
                 facebook: {
                     attachment: {
                         type: "template",
@@ -105,7 +105,7 @@ app.post('/dialogflow', (request, response) => {
                         }
                     }
                 }
-            })
+            }))
 
         } catch (err) {
             console.error(err)
