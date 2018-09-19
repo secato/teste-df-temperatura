@@ -87,6 +87,7 @@ app.post('/dialogflow', (request, response) => {
                     type: "template",
                     payload: {
                         template_type: "list",
+                        top_element_style: "compact",
                         elements: [
                             {
                                 title: 'Nome',
@@ -103,7 +104,7 @@ app.post('/dialogflow', (request, response) => {
                             {
                                 title: 'Salário líquido',
                                 subtitle: result.data.salarioliquido
-                            },
+                            }
                         ],
                         buttons: [
                             {
