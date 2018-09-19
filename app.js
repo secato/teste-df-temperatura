@@ -1,7 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
-const { WebhookClient, Card, Suggestion } = require('dialogflow-fulfillment')
+const { WebhookClient, Card } = require('dialogflow-fulfillment')
 const axios = require('axios')
 const app = express()
 
@@ -74,13 +74,16 @@ app.post('/dialogflow', (request, response) => {
             const result = await axios.get(url)
             console.log(result.data)
 
-            let mensagemFinal = agent.consoleMessages
-            mensagemFinal.unshift(`Salário Líquido: ${result.data.salarioliquido}`)
-            mensagemFinal.unshift(`Descontos: ${result.data.descontos}`)
-            mensagemFinal.unshift(`Salario Bruto: ${result.data.salariobruto}`)
-            mensagemFinal.unshift(`Nome: ${result.data.name} - ${result.data.cpf}`)
-            mensagemFinal.unshift(`CONTRACHEQUE - ${result.data.mes} / ${result.data.ano}`)
+            console.log(agent.consoleMessages)
+
+            let mensagemFinal = []
+            mensagemFinal.push(`CONTRACHEQUE - ${result.data.mes} / ${result.data.ano}`)
+            mensagemFinal.push(`Nome: ${result.data.name} - ${result.data.cpf}`)
+            mensagemFinal.push(`Salario Bruto: ${result.data.salariobruto}`)
+            mensagemFinal.push(`Descontos: ${result.data.descontos}`)
+            mensagemFinal.push(`Salário Líquido: ${result.data.salarioliquido}`)
             agent.add(mensagemFinal)
+
         } catch (err) {
             console.error(err)
         }
