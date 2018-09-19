@@ -1,7 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
-const { WebhookClient, Payload } = require('dialogflow-fulfillment')
+const { WebhookClient, Payload, Text } = require('dialogflow-fulfillment')
 const axios = require('axios')
 const app = express()
 
@@ -80,7 +80,12 @@ app.post('/dialogflow', (request, response) => {
             mensagemFinal.push(`Salario Bruto: ${result.data.salariobruto}`)
             mensagemFinal.push(`Descontos: ${result.data.descontos}`)
             mensagemFinal.push(`Salário Líquido: ${result.data.salarioliquido}`)
-            mensagemFinal.push(new Payload('FACEBOOK', {
+            // mensagemFinal.push()
+
+            let richMessages = []
+
+            const simpleText = new Text(`CONTRACHEQUE - ${result.data.mes} / ${result.data.ano}`)
+            const fbMessage = new Payload('FACEBOOK', {
                 attachment: {
                     type: "template",
                     payload: {
@@ -96,13 +101,15 @@ app.post('/dialogflow', (request, response) => {
                         ]
                     }
                 }
-            }))
+            })
+            richMessages.push(simpleText, fbMessage)
+            agent.add(richMessages)
 
-            agent.add(mensagemFinal)
+            // agent.add(mensagemFinal)
 
-            // {
-            //     
-            //   }
+            // // {
+            // //     
+            // //   }
             // agent.add(new Payload('FACEBOOK', {
             //     attachment: {
             //         type: "template",
