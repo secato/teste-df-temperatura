@@ -74,8 +74,6 @@ app.post('/dialogflow', (request, response) => {
             const result = await axios.get(url)
             console.log(result.data)
 
-            console.log(agent.consoleMessages)
-
             let mensagemFinal = []
             mensagemFinal.push(`CONTRACHEQUE - ${result.data.mes} / ${result.data.ano}`)
             mensagemFinal.push(`Nome: ${result.data.name} - ${result.data.cpf}`)
@@ -88,21 +86,19 @@ app.post('/dialogflow', (request, response) => {
             //     
             //   }
             agent.add(new Payload('FACEBOOK', {
-                facebook: {
-                    attachment: {
-                        type: "template",
-                        payload: {
-                            template_type: "button",
-                            text: "Try the URL button!",
-                            buttons: [
-                                {
-                                    type: "web_url",
-                                    url: "https://www.messenger.com/",
-                                    title: "URL Button",
-                                    webview_height_ratio: "full"
-                                }
-                            ]
-                        }
+                attachment: {
+                    type: "template",
+                    payload: {
+                        template_type: "button",
+                        text: "Try the URL button!",
+                        buttons: [
+                            {
+                                type: "web_url",
+                                url: "https://www.messenger.com/",
+                                title: "URL Button",
+                                webview_height_ratio: "full"
+                            }
+                        ]
                     }
                 }
             }))
