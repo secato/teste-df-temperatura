@@ -1,7 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
-const { WebhookClient, Card } = require('dialogflow-fulfillment')
+const { WebhookClient, Payload } = require('dialogflow-fulfillment')
 const axios = require('axios')
 const app = express()
 
