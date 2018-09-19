@@ -80,12 +80,7 @@ app.post('/dialogflow', (request, response) => {
             mensagemFinal.push(`Salario Bruto: ${result.data.salariobruto}`)
             mensagemFinal.push(`Descontos: ${result.data.descontos}`)
             mensagemFinal.push(`Salário Líquido: ${result.data.salarioliquido}`)
-            agent.add(mensagemFinal)
-
-            // {
-            //     
-            //   }
-            agent.add(new Payload('FACEBOOK', {
+            mensagemFinal.push(new Payload('FACEBOOK', {
                 attachment: {
                     type: "template",
                     payload: {
@@ -102,6 +97,29 @@ app.post('/dialogflow', (request, response) => {
                     }
                 }
             }))
+
+            agent.add(mensagemFinal)
+
+            // {
+            //     
+            //   }
+            // agent.add(new Payload('FACEBOOK', {
+            //     attachment: {
+            //         type: "template",
+            //         payload: {
+            //             template_type: "button",
+            //             text: "Try the URL button!",
+            //             buttons: [
+            //                 {
+            //                     type: "web_url",
+            //                     url: "https://www.messenger.com/",
+            //                     title: "URL Button",
+            //                     webview_height_ratio: "full"
+            //                 }
+            //             ]
+            //         }
+            //     }
+            // }))
 
         } catch (err) {
             console.error(err)
