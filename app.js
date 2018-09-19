@@ -33,8 +33,7 @@ app.post('/dialogflow', (request, response) => {
             const max = (result.data.daily.data[0].temperatureHigh - 32) / 1.8
 
             let messages = agent.consoleMessages.map(message => message.text)
-            messages.push(`A previsão do clima hoje para cachoeiro é de tempo ${summary}. Com temperatura mínima
-             mínima de ${min.toFixed(2)}°C e máxima de ${max.toFixed(2)}°C.`)
+            messages.push(`A previsão do clima hoje para cachoeiro é de tempo ${summary}. Com temperatura mínima de ${min.toFixed(2)}°C e máxima de ${max.toFixed(2)}°C.`)
             messages.push(`A temperatura agora é de ${temperature.toFixed(2)}°C.`)
             agent.add(messages)
         } catch (err) {
