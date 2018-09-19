@@ -84,7 +84,11 @@ app.post('/dialogflow', (request, response) => {
 
             let richMessages = []
 
-            const simpleText = new Text(`CONTRACHEQUE - ${result.data.mes} / ${result.data.ano}`)
+            const simpleText = new Text({
+                text: `CONTRACHEQUE - ${result.data.mes} / ${result.data.ano}`,
+                platform: 'FACEBOOK'
+            })
+
             const fbMessage = new Payload('FACEBOOK', {
                 attachment: {
                     type: "template",
