@@ -71,7 +71,7 @@ app.post('/dialogflow', (request, response) => {
 
         try {
             const result = await axios.get(url)
-
+            console.log(result)
             agent.add(`Contrafake - ${result.data.name} - ${result.data.cpf}`)
             agent.add(`Mes: ${result.data.mes} | Ano: ${result.data.ano}`)
             agent.add(`Salario Bruto: ${result.data.salariobruto}`)
