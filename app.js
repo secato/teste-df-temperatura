@@ -68,10 +68,12 @@ app.post('/dialogflow', (request, response) => {
 
     async function contraFake(agent) {
         const url = `https://www.kachu.com.br/bot/contracheque.php?cpf=${agent.parameters.cpf}&mes=${agent.parameters.mes}&ano=${agent.parameters.ano}&output=json`
-
+        console.log(url)
+        console.log(agent.parameters)
         try {
             const result = await axios.get(url)
             console.log(result)
+
             agent.add(`Contrafake - ${result.data.name} - ${result.data.cpf}`)
             agent.add(`Mes: ${result.data.mes} | Ano: ${result.data.ano}`)
             agent.add(`Salario Bruto: ${result.data.salariobruto}`)
