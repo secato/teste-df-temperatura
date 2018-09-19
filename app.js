@@ -74,8 +74,8 @@ app.post('/dialogflow', (request, response) => {
             const result = await axios.get(url)
             console.log(result.data)
 
-            agent.add(`Contrafake - ${result.data.name} - ${result.data.cpf}`)
-            agent.add(`Mes: ${result.data.mes} | Ano: ${result.data.ano}`)
+            agent.add(`CONTRACHEQUE - ${result.data.mes} / ${result.data.ano}`)
+            agent.add(`Nome: ${result.data.name} - ${result.data.cpf}`)
             agent.add(`Salario Bruto: ${result.data.salariobruto}`)
             agent.add(`Descontos: ${result.data.descontos}`)
             agent.add(`Salário Líquido: ${result.data.salarioliquido}`)
