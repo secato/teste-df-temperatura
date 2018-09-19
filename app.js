@@ -84,6 +84,31 @@ app.post('/dialogflow', (request, response) => {
             mensagemFinal.push(`Salário Líquido: ${result.data.salarioliquido}`)
             agent.add(mensagemFinal)
 
+            // {
+            //     
+            //   }
+            agent.add({
+                payload: {
+                    facebook: {
+                        attachment: {
+                            type: "template",
+                            payload: {
+                                template_type: "button",
+                                text: "Try the URL button!",
+                                buttons: [
+                                    {
+                                        type: "web_url",
+                                        url: "https://www.messenger.com/",
+                                        title: "URL Button",
+                                        webview_height_ratio: "full"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                }
+            })
+
         } catch (err) {
             console.error(err)
         }
