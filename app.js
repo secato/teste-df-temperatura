@@ -72,7 +72,7 @@ app.post('/dialogflow', (request, response) => {
     // intentMap.set('Default Welcome Intent', welcome);
     // intentMap.set('Default Fallback Intent', fallback);
     intentMap.set('temperatura', temperatura);
-    intentMap.set('clima', temperatura);
+    intentMap.set('clima', clima);
     // intentMap.set('<INTENT_NAME_HERE>', googleAssistantHandler);
     agent.handleRequest(intentMap);
 })
