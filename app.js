@@ -72,7 +72,7 @@ app.post('/dialogflow', (request, response) => {
         console.log(agent.parameters)
         try {
             const result = await axios.get(url)
-            console.log(result)
+            console.log(result.data)
 
             agent.add(`Contrafake - ${result.data.name} - ${result.data.cpf}`)
             agent.add(`Mes: ${result.data.mes} | Ano: ${result.data.ano}`)
