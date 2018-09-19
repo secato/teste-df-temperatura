@@ -82,13 +82,6 @@ app.post('/dialogflow', (request, response) => {
             mensagemFinal.push(`Salário Líquido: ${result.data.salarioliquido}`)
             // mensagemFinal.push()
 
-            let richMessages = []
-
-            const simpleText = new Text({
-                text: `CONTRACHEQUE - ${result.data.mes} / ${result.data.ano}`,
-                platform: 'FACEBOOK'
-            })
-
             const fbMessage = new Payload('FACEBOOK', {
                 attachment: {
                     type: "template",
@@ -123,8 +116,7 @@ app.post('/dialogflow', (request, response) => {
                 }
             })
 
-            richMessages.push(simpleText, fbMessage)
-            agent.add(richMessages)
+            agent.add(fbMessage)
 
             // agent.add(mensagemFinal)
 
