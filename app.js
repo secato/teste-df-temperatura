@@ -88,22 +88,20 @@ app.post('/dialogflow', (request, response) => {
             //     
             //   }
             agent.add({
-                payload: {
-                    facebook: {
-                        attachment: {
-                            type: "template",
-                            payload: {
-                                template_type: "button",
-                                text: "Try the URL button!",
-                                buttons: [
-                                    {
-                                        type: "web_url",
-                                        url: "https://www.messenger.com/",
-                                        title: "URL Button",
-                                        webview_height_ratio: "full"
-                                    }
-                                ]
-                            }
+                facebook: {
+                    attachment: {
+                        type: "template",
+                        payload: {
+                            template_type: "button",
+                            text: "Try the URL button!",
+                            buttons: [
+                                {
+                                    type: "web_url",
+                                    url: "https://www.messenger.com/",
+                                    title: "URL Button",
+                                    webview_height_ratio: "full"
+                                }
+                            ]
                         }
                     }
                 }
