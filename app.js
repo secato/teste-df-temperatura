@@ -156,6 +156,19 @@ app.post('/dialogflow', (request, response) => {
     agent.handleRequest(intentMap);
 })
 
+app.post('/dialogtreta', (request, response) => {
+    console.log(request.body)
+
+    messages = [
+        {
+            speech: "Foi mano",
+            type: 0
+        }
+    ]
+
+    response.json(messages)
+})
+
 app.listen(port, console.log(`Server started listening on ${port}`))
 
 
