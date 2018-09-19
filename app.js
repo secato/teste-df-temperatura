@@ -34,7 +34,7 @@ app.post('/dialogflow', (request, response) => {
 
             let messages = agent.consoleMessages.map(message => message.text)
             messages.push(`A previsão do clima hoje para cachoeiro é de tempo ${summary}. Com temperatura mínima
-             de mínima de ${min.toFixed(2)}°C e máxima de ${max.toFixed(2)}°C.`)
+             mínima de ${min.toFixed(2)}°C e máxima de ${max.toFixed(2)}°C.`)
             messages.push(`A temperatura agora é de ${temperature.toFixed(2)}°C.`)
             agent.add(messages)
         } catch (err) {
