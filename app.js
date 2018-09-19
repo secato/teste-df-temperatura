@@ -5,12 +5,13 @@ const { WebhookClient, Card, Suggestion } = require('dialogflow-fulfillment')
 const axios = require('axios')
 const app = express()
 
-const wikipediaTemperatureUrl = 'https://en.wikipedia.org/wiki/Temperature';
-const wikipediaTemperatureImageUrl = 'https://upload.wikimedia.org/wikipedia/commons/2/23/Thermally_Agitated_Molecule.gif'
+// chave de acesso da API
 const weather_api_key = process.env.WEATHER_API_KEY || config.WEATHER_API_KEY
 
+// porta
 const port = process.env.PORT || 5000
 
+// config do express
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cors())
@@ -19,14 +20,18 @@ app.use(cors())
 app.post('/dialogflow', (request, response) => {
     const agent = new WebhookClient({ request, response })
 
-
-
+    // retorna uma mensagem mais detalhad asobre o clima de hoje
     async function clima(agent) {
+
+        // note que as coordenadas de latitude e longitude estao fixas na url, o ideal era pegar de um servico de geolocalizacao para ficar dinamico
         const api_url = `https://api.darksky.net/forecast/${weather_api_key}/-20.8467,-41.1202?lang=pt&exclude=hourly`
         console.log(api_url)
-
         try {
+
+            // faz uma requisicao get asincrona utilizando o axios
             const result = await axios.get(api_url)
+
+            // pega os dados retornados, convertendo fahrenheit para celsius
             const temperature = (result.data.currently.temperature - 32) / 1.8
             const summary = result.data.currently.summary
             const min = (result.data.daily.data[0].temperatureLow - 32) / 1.8
@@ -37,7 +42,7 @@ app.post('/dialogflow', (request, response) => {
             messages.push(`A temperatura agora é de ${temperature.toFixed(2)}°C.`)
             agent.add(messages)
         } catch (err) {
-
+            console.error(err)
         }
     }
 
@@ -48,31 +53,22 @@ app.post('/dialogflow', (request, response) => {
         console.log(api_url)
 
         try {
-
-
             const result = await axios.get(api_url)
             const temperature = (result.data.currently.temperature - 32) / 1.8
-            // console.log('Agent CONSOLE MESSAGES:', agent.consoleMessages)
-            // console.log('TYPEOF:', typeof agent.consoleMessages)
-
             let messages = agent.consoleMessages.map(message => message.text)
             messages.push(`A temperatura agora em cachoeiro é de ${temperature.toFixed(2)} graus celsius.`)
-            // console.log('MESSAGES ARRAY:', messages)
             agent.add(messages)
 
         } catch (err) {
             console.error(err)
-
         }
 
     }
 
+    // nome da intent (case sensitive) e da funcao que trata tal intent
     let intentMap = new Map();
-    // intentMap.set('Default Welcome Intent', welcome);
-    // intentMap.set('Default Fallback Intent', fallback);
     intentMap.set('temperatura', temperatura);
     intentMap.set('clima', clima);
-    // intentMap.set('<INTENT_NAME_HERE>', googleAssistantHandler);
     agent.handleRequest(intentMap);
 })
 
