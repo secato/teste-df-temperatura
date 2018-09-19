@@ -65,6 +65,24 @@ app.post('/dialogflow', (request, response) => {
 
     }
 
+
+    async function contraFake(agent) {
+        const url = `https://www.kachu.com.br/bot/contracheque.php?cpf=${agent.parameters.cpf}&mes=${agent.parameters.mes}&ano=${agent.parameters.ano}&output=json`
+
+        try {
+            const result = await axios.get(url)
+
+            agent.add(`Contrafake - ${result.name} - ${result.cpf}`)
+            agent.add(`Mes: ${result.mes} | Ano: ${result.ano}`)
+            agent.add(`Salario Bruto: ${result.salariobruto}`)
+            agent.add(`Descontos: ${result.descontos}`)
+            agent.add(`Salário Líquido: ${result.salarioliquido}`)
+        } catch (err) {
+            console.error(err)
+        }
+
+    }
+
     // nome da intent (case sensitive) e da funcao que trata tal intent
     let intentMap = new Map();
     intentMap.set('temperatura', temperatura);
