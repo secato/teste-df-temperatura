@@ -87,6 +87,7 @@ app.post('/dialogflow', (request, response) => {
     let intentMap = new Map();
     intentMap.set('temperatura', temperatura);
     intentMap.set('clima', clima);
+    intentMap.set('Contracheque', contraFake)
     agent.handleRequest(intentMap);
 })
 
